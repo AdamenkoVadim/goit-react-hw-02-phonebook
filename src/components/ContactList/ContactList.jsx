@@ -1,9 +1,14 @@
 import React from "react";
 
-export const ContactList = () => {
+
+export const ContactList = ({name}) => {
  return (
     <ul>
-        <li></li>
+        <li>
+            <p>
+            {name}
+            </p>
+        </li>
     </ul>
  )
 }
