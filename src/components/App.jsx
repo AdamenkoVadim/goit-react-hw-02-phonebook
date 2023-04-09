@@ -1,31 +1,19 @@
-import React from "react";
-import { ContactForm } from 'components/ContactForm/ContactForm'
-import { ContactList } from "./ContactList/ContactList";
+import React from 'react';
+import Form from './Form/Form';
 
 export class App extends React.Component {
-
   state = {
-    contacts: [],
-  }
-  
-  formSubmitHandler =({name}) => {
-    const contact = {
-      name,
-    }
-    this.setState(({contacts}) => {
-      return {contacts: [contact, ...contacts],};
-    });
+    contacts: 'con',
   };
-  
-  
-  render(){
-    return(
+
+  render() {
+    return (
       <section>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler}/>
+        <Form />
         <h2>Contacts</h2>
-        <ContactList/>  
+        <p>{this.state.name}</p>
       </section>
-    )
+    );
   }
 }
