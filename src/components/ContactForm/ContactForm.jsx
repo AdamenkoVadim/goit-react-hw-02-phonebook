@@ -1,4 +1,5 @@
 import React from "react";
+import css from "components/ContactForm/ContactForm.module.css"
 
 export class ContactForm extends React.Component {
     state = {
@@ -24,9 +25,9 @@ export class ContactForm extends React.Component {
 
 render() {
     return(
-        <form onSubmit={this.handleSubmit}>
+        <form className={css.contactForm} onSubmit={this.handleSubmit}>
           <label>
-            Name<input
+            Name <input
                   type="text"
                   name="name"
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -37,7 +38,7 @@ render() {
                 />
           </label>
           <label>
-            Number<input
+            Number <input
                   type="tel"
                   name="number"
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

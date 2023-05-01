@@ -1,4 +1,4 @@
-
+import PropTypes from 'prop-types';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { nanoid } from 'nanoid';
 
@@ -18,4 +18,15 @@ export const ContactList = ({ contacts, deleteContact }) => {
       })}
     </ul>
   );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ),
+  deleteContact: PropTypes.func.isRequired,
 };
