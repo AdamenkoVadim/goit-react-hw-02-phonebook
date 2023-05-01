@@ -12,19 +12,16 @@ export class ContactForm extends React.Component {
         })
       }
     
-      handleSubmit=(event)=>{
-       event.preventDefault();
-       const newContact = this.state.contacts;
-      
-       newContact.push({name:this.state.name,number:this.state.number})
-       
-       this.setState({contacts:newContact});
-       this.resetInput();
+      handleSubmit = event => {
+        event.preventDefault();
+        this.props.onSubmit(this.state);
+        this.reset();
       };
     
-      resetInput = () => {
+      reset = () => {
         this.setState({name:'',number:''});
       };
+
 render() {
     return(
         <form onSubmit={this.handleSubmit}>

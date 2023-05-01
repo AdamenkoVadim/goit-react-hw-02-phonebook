@@ -1,17 +1,21 @@
+
+import { ContactItem } from 'components/ContactItem/ContactItem';
 import { nanoid } from 'nanoid';
 
-export const ContactList =({contacts})=>{
-    return(
-      <div>{contacts.map(({name,number}) =>{
-        return(
-        <li key={nanoid()}>
-          {name}:{number}
-          <button
-          type="button"
-          >dell
-          </button>
-        </li>
-      )})}
-      </div>
-    )
-}
+export const ContactList = ({ contacts, deleteContact }) => {
+  return (
+    <ul>
+      {contacts.map(({ name, number, id }) => {
+        return (
+          <ContactItem
+            key={nanoid()}
+            name={name}
+            number={number}
+            id={id}
+            deleteContact={deleteContact}
+          />
+        );
+      })}
+    </ul>
+  );
+};

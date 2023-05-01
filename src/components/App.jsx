@@ -1,6 +1,8 @@
 import React from 'react';
+import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
-import { ContactForm } from './ContactForm/ContactForm'; 
+import { ContactForm } from './ContactForm/ContactForm';
+import { Filter } from './Filter/Filter'; 
 
 export class App extends React.Component {
   state = {
@@ -12,35 +14,60 @@ export class App extends React.Component {
     ],
     filter: '',
   }
-  addContact =({name,number}) => [
-    
-  ]
+  addContact = ({ name, number }) => {
+    const contact = {
+      name,
+      number,
+      id: nanoid(),
+    };
 
-  changeFilter = (event) => {
-    this.setState({ filter:event.currentTarget.value })
+    this.setState(({ contacts }) => {
+      if (
+        contacts.find(
+          contact => contact.name.toLowerCase() === name.toLowerCase()
+        )
+      ) {
+        return alert(`${name} is already in contacts!`);
+      }
+
+      return {
+        contacts: [contact, ...contacts],
+      };
+    });
+  };
+  
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
   };
 
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  searchContacts = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
 
   render() {
-   /*  const contactName = Object.keys(this.state.contacts);
-    const contactNumber = Object.values(this.state.contacts) */ 
     return (
       <section>
         <h1>Phonebook</h1>
-        <ContactForm/>
-        
+        <ContactForm 
+          onSubmit={this.addContact}
+        />
         <h2>Contacts</h2>
-            <label>Find contacts by name
-              <input
-                type="text"
-                placeholder="Find contacts by name"
-                value = {this.state.filter}
-                onChange={this.changeFilter}
-              ></input>
-            </label>
+        <Filter 
+          filter ={this.state.filter}
+          changeFilter = {this.changeFilter}
+        />    
         <ContactList 
-       contacts = {this.state.contacts}
-       
+          contacts = {this.searchContacts()}
+          deleteContact={this.deleteContact}
        />
       </section>
     );
